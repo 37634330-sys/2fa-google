@@ -76,7 +76,7 @@ function renderTokens() {
     list.innerHTML = allTokens.map((secret, idx) => `
         <div class="token-item">
             ${idx === 0 && liveSecret && !tokens.includes(liveSecret) ? '' : `<button class="delete-btn" onclick="deleteToken('${secret}')">Delete</button>`}
-            <div class="token-code" id="code-${secret}">------</div>
+            <div class="token-code" id="code-${secret}" onclick="copyCode('${secret}')">------</div>
             <div class="token-timer" id="timer-${secret}">30s</div>
             <div class="progress-bar"><div class="progress-fill" id="progress-${secret}"></div></div>
             <div class="token-secret">${secret}</div>
@@ -93,6 +93,15 @@ function renderTokens() {
         };
         update();
         intervals.push(setInterval(update, 1000));
+    });
+}
+
+function copyCode(secret) {
+    const code = generateTOTP(secret);
+    navigator.clipboard.writeText(code).then(() => {
+        const el = document.getElementById(`code-${secret}`);
+        el.style.color = '#4caf50';
+        setTimeout(() => el.style.color = '#667eea', 300);
     });
 }
 

@@ -80,6 +80,13 @@ button:hover {
     text-align: center;
     letter-spacing: 8px;
     margin: 10px 0;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+}
+
+.token-code:hover {
+    color: #5568d3;
 }
 
 .token-timer {
